@@ -1,0 +1,32 @@
+{
+  "name": "dotenvx/phpdotenvx",
+  "description": "[dotenvx.com] a better dotenv–from the creator of `dotenv`",
+  "keywords": [
+    "env",
+    "dotenv",
+    "dotenvx",
+    "environment",
+    "environment variables",
+    "dotenv-vault",
+    "configurations"
+  ],
+  "license": "BSD-3-Clause",
+  "autoload": {
+    "psr-4": {
+      "Dotenvx\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "dotenv",
+      "email": "mot@dotenv.org",
+      "homepage": "https://github.com/dotenvx"
+    }
+  ],
+  "require": {
+    "php": "^7.1.3 || ^8.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0|^8.0|^7.0|6.0"
+  }
+}

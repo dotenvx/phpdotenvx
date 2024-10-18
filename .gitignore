@@ -1,0 +1,16 @@
+.env*
+.venv
+!.env.vault
+!tests/**/.env*
+
+.phpunit.result.cache
+composer.lock
+phpstan.neon
+phpstan.tests.neon
+phpunit.xml
+vendor
+
+.vscode
+
+.phpunit.cache
+
