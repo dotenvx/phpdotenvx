@@ -13,20 +13,18 @@
 &nbsp;
 
 
-### Quickstart [![PyPI version](https://badge.fury.io/py/python-dotenvx.svg)](http://badge.fury.io/py/python-dotenvx) 
+### Quickstart [![PHP version](https://badge.fury.io/ph/dotenvx%2Fphpdotenvx.svg)](https://badge.fury.io/ph/dotenvx%2Fphpdotenvx)
 
-Install and use it in code just like `python-dotenv`.
+Install and use it in code just like `phpdotenv`.
 
 ```sh
-pip install python-dotenv
+composer require dotenvx/phpdotenvx
 ```
-```python
-# main.py
-import os
-from dotenvx import load_dotenvx
-load_dotenvx()  # take environment variables from .env.
+```php
+require 'vendor/autoload.php';
 
-print(os.getenv("S3_BUCKET"))
+$dotenvx = Dotenvx\Dotenvx::createImmutable([__DIR__]);
+$dotenvx->safeLoad();
 ```
 
 &nbsp;
