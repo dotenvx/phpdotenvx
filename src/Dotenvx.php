@@ -32,7 +32,7 @@ class Dotenvx
         bool $resolveReferences = false
     ): array {
         if (!function_exists('dotenvx_native_load_env')) {
-            throw new RuntimeException('Load the dotenvx_php extension to use phpdotenvx.');
+            throw new RuntimeException('Load the phpdotenvx extension to use phpdotenvx.');
         }
 
         $processEnv = getenv();
