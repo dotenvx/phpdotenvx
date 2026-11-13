@@ -28,7 +28,8 @@ class Dotenvx
         array $ignore = [],
         ?string $convention = null,
         ?string $environment = null,
-        ?array $keyFiles = null
+        ?array $keyFiles = null,
+        bool $resolveReferences = false
     ): array {
         if (!function_exists('dotenvx_native_load_env')) {
             throw new RuntimeException('Load the dotenvx_php extension to use phpdotenvx.');
@@ -61,6 +62,7 @@ class Dotenvx
             'environment_name' => $environment,
             'key_files' => $keyFiles === null ? null : array_values($keyFiles),
             'adjacent_keys' => true,
+            'resolve_references' => $resolveReferences,
         ];
         $result = json_decode(
             \dotenvx_native_load_env(json_encode($options, JSON_THROW_ON_ERROR)),
