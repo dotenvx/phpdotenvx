@@ -1,36 +1,36 @@
-> [!IMPORTANT]
->
-> Warning: work in progress. until complete, please use [github.com/dotenvx/dotenvx](https://github.com/dotenvx/dotenvx) directly.
->
-> see [php examples](https://dotenvx.com/docs/languages/php)
->
+# phpdotenvx
 
----
+Load plaintext and encrypted dotenv files in PHP using the same Rust loader as
+the Dotenvx CLI, Ruby gem, and Python package. Local private keys can come from
+the environment or `.env.keys`. For stored keys, the loader can delegate lookup
+to a compatible `dotenvx` CLI on PATH.
 
-[![dotenvx](https://dotenvx.com/better-banner.png)](https://dotenvx.com)
+## Install
 
-*a better dotenv*–from the creator of [`dotenv`](https://github.com/motdotla/dotenv).
+1. [Install PIE](https://php.github.io/pie/#installing-pie), the PHP extension installer.
+2. Install and enable the `dotenvx_php` native extension. The PIE package is
+   pending publication. If you already have the extension, enable it in `php.ini`.
+3. Add the PHP package to your project:
 
-* run anywhere (cross-platform)
-* multi-environment
-* encrypted envs
+   ```sh
+   composer require dotenvx/phpdotenvx
+   ```
 
-&nbsp;
+## Usage
 
+Use the Composer autoloader:
 
-### Quickstart [![PHP version](https://badge.fury.io/ph/dotenvx%2Fphpdotenvx.svg)](https://badge.fury.io/ph/dotenvx%2Fphpdotenvx)
-
-Install and use it in code just like `phpdotenv`.
-
-```sh
-composer require dotenvx/phpdotenvx
-```
 ```php
 require 'vendor/autoload.php';
 
-$dotenvx = Dotenvx\Dotenvx::createImmutable([__DIR__]);
+$dotenvx = Dotenvx\Dotenvx::createImmutable(__DIR__);
 $dotenvx->safeLoad();
+
+echo getenv('HELLO');
 ```
 
-&nbsp;
-
+`createImmutable()` preserves existing variables. Use `createMutable()` to
+overwrite them. Both factories accept file or directory paths and default to
+the current working directory. `load(strict: true)` raises on loading errors.
+`safeLoad()` suppresses missing-file diagnostics. Set `DOTENV_QUIET=true` to
+suppress the injection summary.
