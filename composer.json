@@ -1,6 +1,6 @@
 {
   "name": "dotenvx/phpdotenvx",
-  "description": "[dotenvx.com] a better dotenv–from the creator of `dotenv`",
+  "description": "a secure dotenv—from the creator of `dotenv`",
   "keywords": [
     "env",
     "dotenv",
