@@ -8,6 +8,29 @@ use RuntimeException;
 
 class Dotenvx
 {
+    private static ?\DotenvxNativeOutputRedactor $outputRedactor = null;
+
+    private static function redactOutput(array $secrets): void
+    {
+        if (!array_filter($secrets, static fn (string $value): bool => $value !== '')) {
+            return;
+        }
+        if (self::$outputRedactor === null) {
+            $redactor = new \DotenvxNativeOutputRedactor();
+            if (!ob_start(static function (string $chunk, int $phase) use ($redactor): string {
+                $final = (bool) ($phase & PHP_OUTPUT_HANDLER_FINAL);
+                if ($final) {
+                    self::$outputRedactor = null;
+                }
+                return $redactor->filter($chunk, $final, (bool) ($phase & PHP_OUTPUT_HANDLER_CLEAN));
+            }, 1)) {
+                throw new RuntimeException('Could not start dotenvx output redaction.');
+            }
+            self::$outputRedactor = $redactor;
+        }
+        self::$outputRedactor->add($secrets);
+    }
+
     private function __construct(private array $paths, private bool $overwrite)
     {
     }
@@ -82,6 +105,7 @@ class Dotenvx
             }
             $_ENV[$name] = $_SERVER[$name] = $value;
         }
+        self::redactOutput($result['secrets']);
         if ($result['inject_summary'] !== null) {
             file_put_contents('php://stderr', $result['inject_summary'] . "\n");
         }
